@@ -153,6 +153,39 @@ def uploadImage():
    
     return render_template('upload.html',title='upload new Image')
 
+
+
+@app.route('/gallary', methods=['GET','POST'])
+def gallaryImage():
+    # imgs = MyUpload.query.filter_by(user_id=current_user.id) ####
+
+    if request.method == 'POST':
+        if 'file[]' not in request.files:
+            flash('No file uploaded','danger')
+            return redirect(request.url)
+        files = request.files.getlist('file[]')
+        print(type(files),files)
+        for file in files:
+            print(file)
+            if file == '':
+                flash('no file selected','danger')
+               
+            if file and allowed_files(file.filename):
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename ))
+                upload = MyUpload(img =f"/static/gallary/{filename}", imgtype = os.path.splitext(file.filename)[1],user_id=current_user.id)
+                db.session.add(upload)
+                db.session.commit()
+                flash('file uploaded and saved','success')
+                session['uploaded_file'] = f"/static/uploads/{filename}"
+                
+            else:
+                flash('wrong file selected, only PNG and JPG images allowed','danger')
+        return redirect(request.url)
+   
+    return render_template('gallary.html',title='Gallary')
+
+
 @app.route('/cube', methods=['GET','POST'])
 def cubicImage():
     if request.method == 'POST':
