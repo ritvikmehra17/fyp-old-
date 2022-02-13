@@ -37,12 +37,7 @@
       clear: both;
     }
     
-    /* The expanding image container */
-    .container {
-      position: relative;
-      display: none;
-    }
-    
+
     /* Expanding image text */
     #imgtext {
       position: absolute;
@@ -61,86 +56,48 @@
       font-size: 35px;
       cursor: pointer;
     }
+    .imgrid{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
+    }
+    .image{
+      position: relative;
+    }
+    .delete-icon{
+      position:absolute;
+      top:.2rem;
+      right: .2rem;
+    }
+
 </style>
 {% endblock %}
 
 {% block body %}
 {% include "notify.html" %}
-  <h2>List View or Grid View</h2>
-
-  <p>Click on a button to choose list view or grid view.</p>
-
-  <div id="btnContainer">
-  <button class="btn" onclick="listView()"><i class="fa fa-bars"></i> List</button> 
-  <button class="btn active" onclick="gridView()"><i class="fa fa-th-large"></i> Grid</button>
+<div class="container">
+  <div class="p-5 mb-4 rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Custom View</h1>
+      <p class="col-md-8 fs-4">To make a customized Augmented Reality (AR) experience of your own choice, click the below button.</p>
+      <a href="/cube" class="btn btn-primary btn-lg" type="button">customized AR</a>
+    </div>
   </div>
-  <br>
-
-  <div class="row">
-      <div class="column">
-          <img src="/static/uploads/Screenshot_13.png" alt="Nature" style="width:100%" onclick="myFunction(this);">
-      </div>
-      <div class="column">
-          <img src="/static/uploads/Screenshot_13.png" alt="Nature" style="width:100%" onclick="myFunction(this);">
-      </div>
-      <div class="column">
-          <img src="/static/uploads/Screenshot_13.png" alt="Nature" style="width:100%" onclick="myFunction(this);">
-      </div>
-      <div class="column">
-          <img src="/static/uploads/Screenshot_13.png" alt="Nature" style="width:100%" onclick="myFunction(this);">
-      </div>
+  <div class="row imgrid">
+    {% for image in imglist %}
+        <div class="image">
+          <img src="{{image}}" class="img-fluid shadow-sm" alt="">
+          <a href="" class="btn btn-danger btn-sm delete-icon"><i class="fa fa-trash"></i> delete</a>
+        </div>
+    {% endfor %}
+    
   </div>
+</div>
 
-  <!-- insert columns in next row -->
-  <div class="row">
-  </div>
-
-  <div class="container">
-      <span onclick="this.parentElement.style.display='none'" class="closebtn">&times;</span>
-      <img id="expandedImg" style="width:100%">
-      <div id="imgtext"></div>
-  </div>
 {% endblock %}
 
 {% block js %}
 <script>
-$(function myFunction(imgs) {
-    var expandImg = document.getElementById("expandedImg");
-    var imgText = document.getElementById("imgtext");
-    expandImg.src = imgs.src;
-    imgText.innerHTML = imgs.alt;
-    expandImg.parentElement.style.display = "block";
-})
 
-// Get the elements with class="column"
-var elements = document.getElementsByClassName("column");
-
-// Declare a loop variable
-var i;
-
-// List View
-function listView() {
-  for (i = 0; i < elements.length; i++) {
-    elements[i].style.width = "50%";
-  }
-}
-
-// Grid View
-function gridView() {
-  for (i = 0; i < elements.length; i++) {
-    elements[i].style.width = "25%";
-  }
-}
-
-/* Optional: Add active class to the current button (highlight it) */
-var container = document.getElementById("btnContainer");
-var btns = container.getElementsByClassName("btn");
-for (var i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function() {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
-  });
-}
 </script>
 {% endblock %}
