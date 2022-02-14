@@ -159,36 +159,36 @@ def uploadImage():
 def gallaryImage():
     imglist = MyUpload.query.filter_by(user_id=current_user.id)    
     
-    return render_template('gallary.html',title='Gallary',imglist=imglist)
+    return render_template('gallary.html',title='Gallery',imglist=imglist)
 
 
 @app.route('/cube', methods=['GET','POST'])
 def cubicImage():
     imglist = MyUpload.query.filter_by(user_id=current_user.id) 
-    if request.method == 'POST':
-        print(request.files)
-        if 'file' not in request.files:
-            flash('No file uploaded','danger')
-            return redirect(request.url)
-        files = request.files.getlist('file[]')
-        print(type(files))
-        for file in files:
-            if file.filename == '':
-                flash('no file selected','danger')
+    # if request.method == 'POST':
+    #     print(request.files)
+    #     if 'file' not in request.files:
+    #         flash('No file uploaded','danger')
+    #         return redirect(request.url)
+    #     files = request.files.getlist('file[]')
+    #     print(type(files))
+    #     for file in files:
+    #         if file.filename == '':
+    #             flash('no file selected','danger')
                 
-            if file and allowed_files(file.filename):
-                print(file.filename)
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename ))#####
-                upload = MyCube(img =f"/static/cube/{filename}", imgtype = os.path.splitext(file.filename)[1],user_id=current_user.id) ####
-                db.session.add(upload)
-                db.session.commit()
-                flash('file uploaded and saved','success')
-                session['uploaded_file'] = f"/static/cube/{filename}"######
+    #         if file and allowed_files(file.filename):
+    #             print(file.filename)
+    #             filename = secure_filename(file.filename)
+    #             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename ))#####
+    #             upload = MyCube(img =f"/static/cube/{filename}", imgtype = os.path.splitext(file.filename)[1],user_id=current_user.id) ####
+    #             db.session.add(upload)
+    #             db.session.commit()
+    #             flash('file uploaded and saved','success')
+    #             session['uploaded_file'] = f"/static/cube/{filename}"######
                 
-            else:
-                flash(f'{file.filename}<br>wrong file selected, only PNG and JPG images allowed','danger')
-            return redirect(request.url)
+    #         else:
+    #             flash(f'{file.filename}<br>wrong file selected, only PNG and JPG images allowed','danger')
+    #         return redirect(request.url)
    
     return render_template('cube.html',title='Cubic Image',imglist=imglist)
 

@@ -3,62 +3,183 @@
 {% block css %}
 
 {% endblock %}
+
+
 {% block body %}
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6 col-md-8 mx-auto mt-5">
-            {% include "notify.html" %}
-            <form class="card" method="post" enctype="multipart/form-data">
-                <div class="card-header">
-                    <p class="lead">please browse image accordingly
-                        <!-- 1-> front
-                        2-> back
-                        3-> right
-                        4-> left
-                        5-> top
-                        6-> bottom -->
-                    </p>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                      <label for="imageId">Front Image</label>
-                      <input type="file" name="file" class="form-control-file" name="imageId" id="imageId" placeholder="browse the image" aria-describedby="imageHelp">
-                      <!-- <a href="" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> delete</a> -->
-                      <small id="imageHelp" class="form-text text-muted">please select image below 2mb</small>
+  <div class="row">
+    <div class="col-sm-6 col-md-8 mx-auto mt-5">
+      {% include "notify.html" %}
+      <form class="card g-3 needs-validation" method="post" enctype="multipart/form-data">
+        <div class="card-header">
+          <p class="lead">please browse image accordingly
+            <!-- 1-> front
+              2-> back
+              3-> right
+              4-> left
+              5-> top
+              6-> bottom -->
+            </p>
+          </div>
+          <div class="card-body">
+            
+            <div class="row">
+              <div class="col-md-6">
+                <label for="frontimg" class="form-label">Front Wall</label>
+                <select class="form-select form-control" id="frontimg" required>
+                  <option selected disabled value="">Choose...</option>
+                  {% for item in imglist %}
+                  <option> {{ item|e }}</option>
+                  {% endfor %}
+                </select>
+              </div>
 
-                      <label for="imageId">Back Image</label>
-                      <input type="file" name="file" class="form-control-file" name="imageId" id="imageId" placeholder="browse the image" aria-describedby="imageHelp">
-                      <small id="imageHelp" class="form-text text-muted">please select image below 2mb</small>
+              <div class="col-md-6">
+                <figure class="figure">
+                  <img src="https://deconova.eu/wp-content/uploads/2016/02/default-placeholder.png" class="figure-img img-fluid rounded" width="300" id="selfrontimg">
+                  <figcaption class="figure-caption">The Front Wall of the Room</figcaption>
+                </figure>
+              </div>
 
-                      <label for="imageId">Right Image</label>
-                      <input type="file" name="file" class="form-control-file" name="imageId" id="imageId" placeholder="browse the image" aria-describedby="imageHelp">
-                      <small id="imageHelp" class="form-text text-muted">please select image below 2mb</small>
+              <div class="col-md-6">
+                <label for="backimg" class="form-label">Back Wall</label>
+                <select class="form-select form-control" id="backimg" required>
+                  <option selected disabled value="">Choose...</option>
+                  {% for item in imglist %}
+                  <option> {{ item|e }}</option>
+                  {% endfor %}
+                </select>
+              </div>
 
-                      <label for="imageId">Left Image</label>
-                      <input type="file" name="file" class="form-control-file" name="imageId" id="imageId" placeholder="browse the image" aria-describedby="imageHelp">
-                      <small id="imageHelp" class="form-text text-muted">please select image below 2mb</small>
+              <div class="col-md-6">
+                <figure class="figure">
+                  <img src="https://deconova.eu/wp-content/uploads/2016/02/default-placeholder.png" class="figure-img img-fluid rounded" width="300" id="selbackimg">
+                  <figcaption class="figure-caption">The Back Wall of the Room</figcaption>
+                </figure>
+              </div>
 
-                      <label for="imageId">Top Image</label>
-                      <input type="file" name="file" class="form-control-file" name="imageId" id="imageId" placeholder="browse the image" aria-describedby="imageHelp">
-                      <small id="imageHelp" class="form-text text-muted">please select image below 2mb</small>
+              <div class="col-md-6">
+                <label for="rightimg" class="form-label">Right Wall</label>
+                <select class="form-select form-control" id="rightimg" required>
+                  <option selected disabled value="">Choose...</option>
+                  {% for item in imglist %}
+                  <option> {{ item|e }}</option>
+                  {% endfor %}
+                </select>
+              </div>
 
-                      <label for="imageId">Bottom Image</label>
-                      <input type="file" name="file" class="form-control-file" name="imageId" id="imageId" placeholder="browse the image" aria-describedby="imageHelp">
-                      <small id="imageHelp" class="form-text text-muted">please select image below 2mb</small>
-                    </div>
-                </div>
-                <div class="card-footer">
-                    <button class="btn btn-primary">submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 mx-auto">
-            <div class="card">
-                <img class="card-img-top" src="{{session['uploaded_file']}}" alt="" height="400">
+              <div class="col-md-6">
+                <figure class="figure">
+                  <img src="https://deconova.eu/wp-content/uploads/2016/02/default-placeholder.png" class="figure-img img-fluid rounded" width="300" id="selrightimg">
+                  <figcaption class="figure-caption">The Right Wall of the Room</figcaption>
+                </figure>
+              </div>
+
+              <div class="col-md-6">
+                <label for="leftimg" class="form-label">Left Wall</label>
+                <select class="form-select form-control" id="leftimg" required>
+                  <option selected disabled value="">Choose...</option>
+                  {% for item in imglist %}
+                  <option> {{ item|e }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <figure class="figure">
+                  <img src="https://deconova.eu/wp-content/uploads/2016/02/default-placeholder.png" class="figure-img img-fluid rounded" width="300" id="selleftimg">
+                  <figcaption class="figure-caption">The Left Wall of the Room</figcaption>
+                </figure>
+              </div>
+
+              <div class="col-md-6">
+                <label for="ceilingimg" class="form-label">Ceiling </label>
+                <select class="form-select form-control" id="ceilingimg" required>
+                  <option selected disabled value="">Choose...</option>
+                  {% for item in imglist %}
+                  <option> {{ item|e }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <figure class="figure">
+                  <img src="https://deconova.eu/wp-content/uploads/2016/02/default-placeholder.png" class="figure-img img-fluid rounded" width="300" id="selceilingimg">
+                  <figcaption class="figure-caption">The Ceiling of the Room</figcaption>
+                </figure>
+              </div>
+
+              <div class="col-md-6">
+                <label for="floorimg" class="form-label">Floor </label>
+                <select class="form-select form-control" id="floorimg" required>
+                  <option selected disabled value="">Choose...</option>
+                  {% for item in imglist %}
+                  <option> {{ item|e }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              <div class="col-md-6">
+                <figure class="figure">
+                  <img src="https://deconova.eu/wp-content/uploads/2016/02/default-placeholder.png" class="figure-img img-fluid rounded" width="300" id="selfloorimg">
+                  <figcaption class="figure-caption">The Floor of the Room</figcaption>
+                </figure>
+              </div>
+              
+              
             </div>
-        </div>
+            
+          </div>
+          <div class="card-footer">
+            <div class="row">
+              
+              <div class="col-lg-10 col-md-8" >
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                  <label class="form-check-label" for="invalidCheck">
+                    Agree to terms and conditions
+                  </label>
+                  <div class="invalid-feedback">
+                    You must agree before submitting.
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-4">
+                <button type="submit" class="btn btn-primary btn-block">submit</button>
+              </div>
+            </div>
+            
+          </div>
+        </form>
+      </div>
     </div>
-</div>
-{% endblock %}
+    
+  </div>
+  {% endblock %}
+  {% block js %}
+  <script>
+    $(()=>{
+     
+      $( "#ceilingimg" ).change(function() {
+        $('#selceilingimg').attr('src',this.value)
+      });
+      $( "#floorimg" ).change(function() {
+        $('#selfloorimg').attr('src',this.value)
+      });
+      $( "#frontimg" ).change(function() {
+        $('#selfrontimg').attr('src',this.value)
+      });
+      $( "#backimg" ).change(function() {
+        $('#selbackimg').attr('src',this.value)
+      });
+      $( "#rightimg" ).change(function() {
+        $('#selrightimg').attr('src',this.value)
+      });
+      $( "#leftimg" ).change(function() {
+        $('#selleftimg').attr('src',this.value)
+      });
+    })
+  </script>
+  {% endblock %}
+  
+  
