@@ -43,15 +43,15 @@ class MyUpload(db.Model):
 
 class MyCube(db.Model):
     id=db.Column(db.Integer, primary_key=True) 
-    front=db.Column(db.String(255),db.ForeignKey('my_upload.id'))##########
-    back=db.Column(db.String(255),db.ForeignKey('my_upload.id'))##########
-    right=db.Column(db.String(255),db.ForeignKey('my_upload.id'))##########
-    left=db.Column(db.String(255),db.ForeignKey('my_upload.id'))##########
-    top=db.Column(db.String(255),db.ForeignKey('my_upload.id'))##########
-    bottom=db.Column(db.String(255),db.ForeignKey('my_upload.id'))##########
+    front=db.Column(db.String(255),db.ForeignKey('my_upload.id'))
+    back=db.Column(db.String(255),db.ForeignKey('my_upload.id'))
+    right=db.Column(db.String(255),db.ForeignKey('my_upload.id'))
+    left=db.Column(db.String(255),db.ForeignKey('my_upload.id'))
+    top=db.Column(db.String(255),db.ForeignKey('my_upload.id'))
+    bottom=db.Column(db.String(255),db.ForeignKey('my_upload.id'))
     imgtype=db.Column(db.String(4))
     created_at=db.Column(db.DateTime,nullable=False,index=True, default=dt.datetime.utcnow)
-    user_id=db.Column(db.Integer,db.ForeignKey('user.id'))#####
+    user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
     publish=db.Column(db.Boolean,nullable=False, default=False)
     output_img=db.Column(db.String(255))
 

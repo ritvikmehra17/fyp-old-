@@ -7,9 +7,9 @@
 
 {% block body %}
 <div class="container">
+  {% include "notify.html" %}
   <div class="row">
     <div class="col-sm-6 col-md-8 mx-auto mt-5">
-      {% include "notify.html" %}
       <form class="card g-3 needs-validation" method="post" enctype="multipart/form-data">
         <div class="card-header">
           <p class="lead">please browse image accordingly
@@ -26,10 +26,10 @@
             <div class="row">
               <div class="col-md-6">
                 <label for="frontimg" class="form-label">Front Wall</label>
-                <select class="form-select form-control" id="frontimg" required>
+                <select class="form-select form-control" name="front" id="frontimg" required>
                   <option selected disabled value="">Choose...</option>
                   {% for item in imglist %}
-                  <option> {{ item|e }}</option>
+                  <option> {{ item }}</option>
                   {% endfor %}
                 </select>
               </div>
@@ -43,10 +43,10 @@
 
               <div class="col-md-6">
                 <label for="backimg" class="form-label">Back Wall</label>
-                <select class="form-select form-control" id="backimg" required>
+                <select class="form-select form-control" name="back" id="backimg" required>
                   <option selected disabled value="">Choose...</option>
                   {% for item in imglist %}
-                  <option> {{ item|e }}</option>
+                  <option> {{ item }}</option>
                   {% endfor %}
                 </select>
               </div>
@@ -60,10 +60,10 @@
 
               <div class="col-md-6">
                 <label for="rightimg" class="form-label">Right Wall</label>
-                <select class="form-select form-control" id="rightimg" required>
+                <select class="form-select form-control" name="right" id="rightimg" required>
                   <option selected disabled value="">Choose...</option>
                   {% for item in imglist %}
-                  <option> {{ item|e }}</option>
+                  <option> {{ item }}</option>
                   {% endfor %}
                 </select>
               </div>
@@ -77,10 +77,10 @@
 
               <div class="col-md-6">
                 <label for="leftimg" class="form-label">Left Wall</label>
-                <select class="form-select form-control" id="leftimg" required>
+                <select class="form-select form-control" name="left" id="leftimg" required>
                   <option selected disabled value="">Choose...</option>
                   {% for item in imglist %}
-                  <option> {{ item|e }}</option>
+                  <option> {{ item }}</option>
                   {% endfor %}
                 </select>
               </div>
@@ -94,10 +94,10 @@
 
               <div class="col-md-6">
                 <label for="ceilingimg" class="form-label">Ceiling </label>
-                <select class="form-select form-control" id="ceilingimg" required>
+                <select class="form-select form-control" name="ceiling" id="ceilingimg" required>
                   <option selected disabled value="">Choose...</option>
                   {% for item in imglist %}
-                  <option> {{ item|e }}</option>
+                  <option> {{ item }}</option>
                   {% endfor %}
                 </select>
               </div>
@@ -111,10 +111,10 @@
 
               <div class="col-md-6">
                 <label for="floorimg" class="form-label">Floor </label>
-                <select class="form-select form-control" id="floorimg" required>
+                <select class="form-select form-control" name="floorimg" id="floorimg" required>
                   <option selected disabled value="">Choose...</option>
                   {% for item in imglist %}
-                  <option> {{ item|e }}</option>
+                  <option> {{ item }}</option>
                   {% endfor %}
                 </select>
               </div>
@@ -159,7 +159,6 @@
   {% block js %}
   <script>
     $(()=>{
-     
       $( "#ceilingimg" ).change(function() {
         $('#selceilingimg').attr('src',this.value)
       });
@@ -178,6 +177,7 @@
       $( "#leftimg" ).change(function() {
         $('#selleftimg').attr('src',this.value)
       });
+      
     })
   </script>
   {% endblock %}

@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from flask import render_template,redirect,request,flash,session,url_for
 from flask_login import logout_user,current_user, login_user, login_required
 from app import app,db
@@ -125,7 +126,7 @@ def allowed_files(filename):
 
 @app.route('/upload', methods=['GET','POST'])
 def uploadImage():
-    # imgs = MyUpload.query.filter_by(user_id=current_user.id) ####
+    imglist = MyUpload.query.filter_by(user_id=current_user.id) 
 
     if request.method == 'POST':
         if 'file[]' not in request.files:
@@ -151,45 +152,36 @@ def uploadImage():
                 flash('wrong file selected, only PNG and JPG images allowed','danger')
         return redirect(request.url)
    
-    return render_template('upload.html',title='upload new Image')
+    return render_template('upload.html',title='upload new Image',imglist=imglist)
 
 
 
 @app.route('/gallary', methods=['GET','POST'])
 def gallaryImage():
     imglist = MyUpload.query.filter_by(user_id=current_user.id)    
-    
+   
+        
     return render_template('gallary.html',title='Gallery',imglist=imglist)
 
 
 @app.route('/cube', methods=['GET','POST'])
 def cubicImage():
-    imglist = MyUpload.query.filter_by(user_id=current_user.id) 
-    # if request.method == 'POST':
-    #     print(request.files)
-    #     if 'file' not in request.files:
-    #         flash('No file uploaded','danger')
-    #         return redirect(request.url)
-    #     files = request.files.getlist('file[]')
-    #     print(type(files))
-    #     for file in files:
-    #         if file.filename == '':
-    #             flash('no file selected','danger')
-                
-    #         if file and allowed_files(file.filename):
-    #             print(file.filename)
-    #             filename = secure_filename(file.filename)
-    #             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename ))#####
-    #             upload = MyCube(img =f"/static/cube/{filename}", imgtype = os.path.splitext(file.filename)[1],user_id=current_user.id) ####
-    #             db.session.add(upload)
-    #             db.session.commit()
-    #             flash('file uploaded and saved','success')
-    #             session['uploaded_file'] = f"/static/cube/{filename}"######
-                
-    #         else:
-    #             flash(f'{file.filename}<br>wrong file selected, only PNG and JPG images allowed','danger')
-    #         return redirect(request.url)
-   
+    imglist = MyUpload.query.filter_by(user_id=current_user.id)
+    if request.method == 'POST':
+        # if 'file' not in request.form:
+        data=request.form.to_dict(flat=False)
+        selection = list(data.values())
+        selection = [item[0] for item in selection]
+
+        print(selection)
+        if len(set(selection))==6:
+            c = MyCube(data.get('front'))
+            db.session.add(c)
+            db.session.commit()
+            flash('file uploaded and saved','success')
+        else:
+            flash('All walls should be unique','danger')   
+
     return render_template('cube.html',title='Cubic Image',imglist=imglist)
 
 @app.route('/hello')
