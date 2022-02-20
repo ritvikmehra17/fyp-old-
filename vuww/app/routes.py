@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+from email.mime import image
 from flask import render_template,redirect,request,flash,session,url_for
 from flask_login import logout_user,current_user, login_user, login_required
 from app import app,db
@@ -168,17 +169,28 @@ def gallaryImage():
 def cubicImage():
     imglist = MyUpload.query.filter_by(user_id=current_user.id)
     if request.method == 'POST':
-        # if 'file' not in request.form:
-        data=request.form.to_dict(flat=False)
-        selection = list(data.values())
-        selection = [item[0] for item in selection]
-
-        print(selection)
-        if len(set(selection))==6:
-            c = MyCube(data.get('front'))
+        data=request.form.to_dict(flat=True)
+        images=(data.get('front'),data.get('back'),data.get('left'),data.get('right'),data.get('ceiling'),data.get('floor'))
+        images_set = set(images)
+        print(images)
+        if len(images_set)==6 and  data.get('title'):
+            c = MyCube(
+                        front=images[0],
+                        back=images[1],
+                        left=images[2],
+                        right=images[3],
+                        ceiling=images[4],
+                        floor=images[5],
+                        user_id=current_user.id,
+                        title=data.get('title'),
+                        description=data.get('description'),
+                        publish=True if data.get('publish') == 'true' else False
+                        )
+            
             db.session.add(c)
             db.session.commit()
             flash('file uploaded and saved','success')
+            return redirect('/')            
         else:
             flash('All walls should be unique','danger')   
 

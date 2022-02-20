@@ -9,8 +9,8 @@
 <div class="container">
   {% include "notify.html" %}
   <div class="row">
-    <div class="col-sm-6 col-md-8 mx-auto mt-5">
-      <form class="card g-3 needs-validation" method="post" enctype="multipart/form-data">
+    <div class="col-sm-12 col-md-12 mx-auto mt-5">
+      <form class="card g-3 needs-validation" method="post">
         <div class="card-header">
           <p class="lead">please browse image accordingly
             <!-- 1-> front
@@ -23,8 +23,15 @@
           </div>
           <div class="card-body">
             
+            <div class="form-input py-3">
+              <label for="validationCustom01" class="form-label"><h3>Title for VT Creation</h3></label>
+              <input type="text" class="form-control" id="validationCustom01" value="My Creation" name="title" required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+            </div>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-3">
                 <label for="frontimg" class="form-label">Front Wall</label>
                 <select class="form-select form-control" name="front" id="frontimg" required>
                   <option selected disabled value="">Choose...</option>
@@ -33,15 +40,15 @@
                   {% endfor %}
                 </select>
               </div>
-
-              <div class="col-md-6">
+              
+              <div class="col-md-3">
                 <figure class="figure">
                   <img src="https://deconova.eu/wp-content/uploads/2016/02/default-placeholder.png" class="figure-img img-fluid rounded" width="300" id="selfrontimg">
                   <figcaption class="figure-caption">The Front Wall of the Room</figcaption>
                 </figure>
               </div>
-
-              <div class="col-md-6">
+              
+              <div class="col-md-3">
                 <label for="backimg" class="form-label">Back Wall</label>
                 <select class="form-select form-control" name="back" id="backimg" required>
                   <option selected disabled value="">Choose...</option>
@@ -50,15 +57,15 @@
                   {% endfor %}
                 </select>
               </div>
-
-              <div class="col-md-6">
+              
+              <div class="col-md-3">
                 <figure class="figure">
                   <img src="https://deconova.eu/wp-content/uploads/2016/02/default-placeholder.png" class="figure-img img-fluid rounded" width="300" id="selbackimg">
                   <figcaption class="figure-caption">The Back Wall of the Room</figcaption>
                 </figure>
               </div>
-
-              <div class="col-md-6">
+              
+              <div class="col-md-3">
                 <label for="rightimg" class="form-label">Right Wall</label>
                 <select class="form-select form-control" name="right" id="rightimg" required>
                   <option selected disabled value="">Choose...</option>
@@ -67,15 +74,15 @@
                   {% endfor %}
                 </select>
               </div>
-
-              <div class="col-md-6">
+              
+              <div class="col-md-3">
                 <figure class="figure">
                   <img src="https://deconova.eu/wp-content/uploads/2016/02/default-placeholder.png" class="figure-img img-fluid rounded" width="300" id="selrightimg">
                   <figcaption class="figure-caption">The Right Wall of the Room</figcaption>
                 </figure>
               </div>
-
-              <div class="col-md-6">
+              
+              <div class="col-md-3">
                 <label for="leftimg" class="form-label">Left Wall</label>
                 <select class="form-select form-control" name="left" id="leftimg" required>
                   <option selected disabled value="">Choose...</option>
@@ -84,15 +91,15 @@
                   {% endfor %}
                 </select>
               </div>
-
-              <div class="col-md-6">
+              
+              <div class="col-md-3">
                 <figure class="figure">
                   <img src="https://deconova.eu/wp-content/uploads/2016/02/default-placeholder.png" class="figure-img img-fluid rounded" width="300" id="selleftimg">
                   <figcaption class="figure-caption">The Left Wall of the Room</figcaption>
                 </figure>
               </div>
-
-              <div class="col-md-6">
+              
+              <div class="col-md-3">
                 <label for="ceilingimg" class="form-label">Ceiling </label>
                 <select class="form-select form-control" name="ceiling" id="ceilingimg" required>
                   <option selected disabled value="">Choose...</option>
@@ -101,32 +108,35 @@
                   {% endfor %}
                 </select>
               </div>
-
-              <div class="col-md-6">
+              
+              <div class="col-md-3">
                 <figure class="figure">
                   <img src="https://deconova.eu/wp-content/uploads/2016/02/default-placeholder.png" class="figure-img img-fluid rounded" width="300" id="selceilingimg">
                   <figcaption class="figure-caption">The Ceiling of the Room</figcaption>
                 </figure>
               </div>
-
-              <div class="col-md-6">
+              
+              <div class="col-md-3">
                 <label for="floorimg" class="form-label">Floor </label>
-                <select class="form-select form-control" name="floorimg" id="floorimg" required>
+                <select class="form-select form-control" name="floor" id="floorimg" required>
                   <option selected disabled value="">Choose...</option>
                   {% for item in imglist %}
                   <option> {{ item }}</option>
                   {% endfor %}
                 </select>
               </div>
-
-              <div class="col-md-6">
+              
+              <div class="col-md-3">
                 <figure class="figure">
                   <img src="https://deconova.eu/wp-content/uploads/2016/02/default-placeholder.png" class="figure-img img-fluid rounded" width="300" id="selfloorimg">
                   <figcaption class="figure-caption">The Floor of the Room</figcaption>
                 </figure>
               </div>
               
-              
+              <div class="form-input py-3 col">
+                <label for="validationCustom01" class="form-label">Description</label>
+                <textarea rows="5"  class="form-control" name="description"></textarea>
+              </div>
             </div>
             
           </div>
@@ -142,6 +152,12 @@
                   <div class="invalid-feedback">
                     You must agree before submitting.
                   </div>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" name="publish" id="publishCheck">
+                  <label class="form-check-label" for="publishCheck">
+                    Publish for Sell
+                  </label>
                 </div>
               </div>
               <div class="col-lg-2 col-md-4">
@@ -179,6 +195,16 @@
       });
       
     })
+    $('#checkbox-value').text($('#publishCheck').val());
+    $("#publishCheck").on('change', function() {
+      if ($(this).is(':checked')) {
+        $(this).attr('value', 'true');
+      } else {
+        $(this).attr('value', 'false');
+      }
+      
+      $('#checkbox-value').text($('#publishCheck').val());
+    });
   </script>
   {% endblock %}
   

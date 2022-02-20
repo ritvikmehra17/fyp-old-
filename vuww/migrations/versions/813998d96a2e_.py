@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: acb199809f06
+Revision ID: 813998d96a2e
 Revises: 
-Create Date: 2022-02-11 12:18:34.229069
+Create Date: 2022-02-20 12:08:23.248237
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'acb199809f06'
+revision = '813998d96a2e'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -51,24 +51,24 @@ def upgrade():
     op.create_index(op.f('ix_my_upload_created_at'), 'my_upload', ['created_at'], unique=False)
     op.create_index(op.f('ix_my_upload_updated_at'), 'my_upload', ['updated_at'], unique=False)
     op.create_table('my_cube',
-    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
     sa.Column('front', sa.String(length=255), nullable=True),
     sa.Column('back', sa.String(length=255), nullable=True),
     sa.Column('right', sa.String(length=255), nullable=True),
     sa.Column('left', sa.String(length=255), nullable=True),
-    sa.Column('top', sa.String(length=255), nullable=True),
-    sa.Column('bottom', sa.String(length=255), nullable=True),
-    sa.Column('imgtype', sa.String(length=4), nullable=True),
+    sa.Column('ceiling', sa.String(length=255), nullable=True),
+    sa.Column('floor', sa.String(length=255), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=True),
     sa.Column('publish', sa.Boolean(), nullable=False),
-    sa.Column('output_img', sa.String(length=255), nullable=True),
+    sa.Column('title', sa.String(length=50), nullable=True),
+    sa.Column('description', sa.String(length=255), nullable=True),
     sa.ForeignKeyConstraint(['back'], ['my_upload.id'], ),
-    sa.ForeignKeyConstraint(['bottom'], ['my_upload.id'], ),
+    sa.ForeignKeyConstraint(['ceiling'], ['my_upload.id'], ),
+    sa.ForeignKeyConstraint(['floor'], ['my_upload.id'], ),
     sa.ForeignKeyConstraint(['front'], ['my_upload.id'], ),
     sa.ForeignKeyConstraint(['left'], ['my_upload.id'], ),
     sa.ForeignKeyConstraint(['right'], ['my_upload.id'], ),
-    sa.ForeignKeyConstraint(['top'], ['my_upload.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
