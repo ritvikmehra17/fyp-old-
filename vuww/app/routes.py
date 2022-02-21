@@ -12,7 +12,9 @@ import os
 @app.route('/index')
 @login_required
 def index():
-    return render_template('index.html',title='home')
+    imglist = MyCube.query.filter_by(publish=True)
+    
+    return render_template('index.html',title='Home', vrlist=imglist)
 
 @app.route('/login',methods=['GET', 'POST'])
 def login():
@@ -157,12 +159,12 @@ def uploadImage():
 
 
 
-@app.route('/gallary', methods=['GET','POST'])
-def gallaryImage():
+@app.route('/dashboard', methods=['GET','POST'])
+def dashboardImage():
     imglist = MyUpload.query.filter_by(user_id=current_user.id)    
    
         
-    return render_template('gallary.html',title='Gallery',imglist=imglist)
+    return render_template('dashboard.html',title='Dashboard',imglist=imglist)
 
 
 @app.route('/cube', methods=['GET','POST'])
@@ -196,6 +198,6 @@ def cubicImage():
 
     return render_template('cube.html',title='Cubic Image',imglist=imglist)
 
-@app.route('/hello')
-def helloworld():
-    return render_template('helloworld.html')
+@app.route('/vt',methods=['GET','POST'])
+def virtualtour():
+    return render_template('vt.html',title='Virtual Tour')
