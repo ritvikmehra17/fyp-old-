@@ -8,6 +8,7 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
 
+
 @app.route('/')
 @app.route('/index')
 @login_required
@@ -198,6 +199,11 @@ def cubicImage():
 
     return render_template('cube.html',title='Cubic Image',imglist=imglist)
 
-@app.route('/vt',methods=['GET','POST'])
-def virtualtour():
-    return render_template('vt.html',title='Virtual Tour')
+@app.route('/vt/<int:id>',methods=['GET','POST'])
+def virtualtour(id):
+    vr = MyCube.query.get(id)
+    cmd = f"cube2sphere {'app'+vr.front} {'app'+vr.back} {'app'+vr.left} {'app'+vr.right} {'app'+vr.ceiling} {'app'+vr.floor} -r 2048 1024 -fJPG -ostitched"
+    print(cmd)
+    stream = os.popen(cmd)
+    out = stream.read()
+    return render_template('vt.html',title='Virtual Tour',vr=vr)
