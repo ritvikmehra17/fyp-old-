@@ -202,8 +202,21 @@ def cubicImage():
 @app.route('/vt/<int:id>',methods=['GET','POST'])
 def virtualtour(id):
     vr = MyCube.query.get(id)
-    cmd = f"cube2sphere {'app'+vr.front} {'app'+vr.back} {'app'+vr.left} {'app'+vr.right} {'app'+vr.ceiling} {'app'+vr.floor} -r 2048 1024 -fJPG -ostitched"
-    print(cmd)
-    stream = os.popen(cmd)
-    out = stream.read()
-    return render_template('vt.html',title='Virtual Tour',vr=vr)
+    title=(vr.title).replace(' ','_')
+    loc = f"app/static/output/{title}/"
+    os.mkdir(loc) if not os.path.exists(loc) else print('path found')
+    save_path = os.path.join(loc,'cube')
+    print(loc)
+    print(save_path)
+    for file in os.listdir(loc):
+        if 'cube' in file:
+            print('file exists no need to create')
+            break
+    else:
+        cmd = f"cube2sphere {'app'+vr.front} {'app'+vr.back} {'app'+vr.left} {'app'+vr.right} {'app'+vr.ceiling} {'app'+vr.floor} -r 2048 1024 -fJPG -o{save_path}"
+        stream = os.popen(cmd)
+        out = stream.read()
+        print(cmd)
+        print(out)    
+    return render_template('vt.html',title='Virtual Tour',vr=vr,cube=save_path)
+    

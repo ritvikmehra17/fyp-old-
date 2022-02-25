@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js"></script>
-    <script src="panolens.min.js"></script>
+    <script src="/static/js/panolens.min.js"></script>
     <style>
          #panolens-separate-container {
         position: absolute;
@@ -38,7 +38,7 @@
 
     <script>
        
-            const panorama = new PANOLENS.ImagePanorama( 'tmp.png' );
+            const panorama = new PANOLENS.ImagePanorama('tmp.png');
             const viewer = new PANOLENS.Viewer({ container: document.querySelector( '#panolens-separate-container' ) });
             viewer.add( panorama );
       
