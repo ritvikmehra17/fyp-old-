@@ -199,6 +199,29 @@ def cubicImage():
 
     return render_template('cube.html',title='Cubic Image',imglist=imglist)
 
+
+@app.route('/remove/<int:id>',methods=['GET','POST'])
+def removeImage(id):
+    image = MyUpload.query.get(id)
+    try:
+        if os.path.exists('app'+image.img):
+            os.unlink('app'+image.img)
+        MyUpload.query.filter_by(id=id).delete()
+        db.session.commit()
+        flash('image deleted successfully','success')
+    except Exception as e:
+        print(e)
+        flash('houston we have a problem','danger')
+
+    return redirect('/dashboard')
+
+
+
+    
+    
+
+
+
 @app.route('/vt/<int:id>',methods=['GET','POST'])
 def virtualtour(id):
     vr = MyCube.query.get(id)
@@ -218,5 +241,7 @@ def virtualtour(id):
         out = stream.read()
         print(cmd)
         print(out)    
+    save_path +="0001.png"
+    save_path = save_path[3:]
     return render_template('vt.html',title='Virtual Tour',vr=vr,cube=save_path)
     

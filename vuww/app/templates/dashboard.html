@@ -87,7 +87,7 @@
     {% for image in imglist %}
         <div class="image">
           <img src="{{image}}" class="img-fluid shadow-sm" alt="">
-          <a href="" class="btn btn-danger btn-sm delete-icon"><i class="fa fa-trash"></i> delete</a>
+          <a href="/remove/{{image.id}}" class="btn btn-danger btn-sm delete-icon"><i class="fa fa-trash"></i> delete</a>
         </div>
     {% endfor %}
     
